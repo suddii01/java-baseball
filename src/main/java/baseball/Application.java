@@ -43,6 +43,7 @@ public class Application {
             String order = readLine();
             if (order.equals("1")) return true;
             if (order.equals("2")) return false;
+            throw new IllegalArgumentException("1 또는 2를 입력해 주세요.");
         }
     }
 
