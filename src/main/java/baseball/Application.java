@@ -14,6 +14,13 @@ public class Application {
         while (true) {
             System.out.println("숫자 야구 게임을 시작합니다.");
             List<Integer> computer = getRandomNumbers();
+            while (true) {
+                System.out.print("숫자를 입력주세요 : ");
+                List<Integer> gamePlayer = getInputNumbers();
+
+                System.out.println(computer);
+                System.out.println(gamePlayer);
+            }
         }
     }
 
@@ -26,5 +33,11 @@ public class Application {
             }
         }
         return randomNumbers;
+    }
+
+    public static List<Integer> getInputNumbers() {
+        String s = Console.readLine();
+        String[] strings = s.split(" ");
+        return Arrays.stream(strings).map(string -> Integer.parseInt(string)).collect(Collectors.toList());
     }
 }
