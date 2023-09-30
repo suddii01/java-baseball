@@ -15,8 +15,7 @@ public class Application {
     public static void validateNumbers(List<Integer> numbers) throws IllegalArgumentException {
         Set<Integer> set = new HashSet<>(numbers);
         if (set.size() != 3) throw new IllegalArgumentException("중복된 숫자는 존재할 수 없습니다.");
-
-
+        if (numbers.size() != 3) throw new IllegalArgumentException("숫자는 3개 입력되어야 합니다.");
     }
 
     public static void runBaseballGame() {
