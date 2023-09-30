@@ -28,7 +28,10 @@ public class Application {
             List<Integer> player = readInputNumbers();
 
             PlayResult playResult = calculatePlayResult(computer, player);
-            playResult.printPlayResult();
+            boolean is3Strike = playResult.printPlayResult();
+            if (!is3Strike) continue;
+
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         }
     }
 
