@@ -18,11 +18,12 @@ public class Application {
         while (true) {
             System.out.println("숫자 야구 게임을 시작합니다.");
             List<Integer> computer = generateUniqueRandomNumbers();
-            playBaseballGame(computer);
+            boolean shouldContinue = playBaseballGame(computer);
+            if (!shouldContinue) break;
         }
     }
 
-    public static void playBaseballGame(List<Integer> computer) {
+    public static boolean playBaseballGame(List<Integer> computer) {
         while (true) {
             System.out.print("숫자를 입력주세요 : ");
             List<Integer> player = readInputNumbers();
@@ -32,6 +33,11 @@ public class Application {
             if (!is3Strike) continue;
 
             System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
+            String order = readLine();
+            if (order.equals("1")) return true;
+            if (order.equals("2")) return false;
         }
     }
 
