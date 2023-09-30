@@ -1,8 +1,6 @@
 package baseball;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static baseball.BaseballScore.*;
@@ -12,6 +10,13 @@ import static camp.nextstep.edu.missionutils.Randoms.*;
 public class Application {
     public static void main(String[] args) {
         runBaseballGame();
+    }
+
+    public static void validateNumbers(List<Integer> numbers) throws IllegalArgumentException {
+        Set<Integer> set = new HashSet<>(numbers);
+        if (set.size() != 3) throw new IllegalArgumentException("중복된 숫자는 존재할 수 없습니다.");
+
+
     }
 
     public static void runBaseballGame() {
@@ -27,6 +32,7 @@ public class Application {
         while (true) {
             System.out.print("숫자를 입력주세요 : ");
             List<Integer> player = readInputNumbers();
+            validateNumbers(player);
 
             PlayResult playResult = calculatePlayResult(computer, player);
             boolean is3Strike = playResult.printPlayResult();
