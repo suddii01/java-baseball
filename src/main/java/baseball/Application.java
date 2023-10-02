@@ -3,24 +3,29 @@ package baseball;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static baseball.BaseballExceptionType.*;
+import static baseball.BaseballMessage.*;
 import static baseball.BaseballScore.*;
+import static baseball.BaseballConstant.*;
 import static camp.nextstep.edu.missionutils.Console.*;
 import static camp.nextstep.edu.missionutils.Randoms.*;
+
+
 
 public class Application {
     public static void main(String[] args) {
         runBaseballGame();
     }
 
-    public static void validateNumbers(List<Integer> numbers) throws IllegalArgumentException {
+    public static void validateNumbers(List<Integer> numbers) {
         Set<Integer> set = new HashSet<>(numbers);
-        if (set.size() != 3) throw new IllegalArgumentException("중복된 숫자는 존재할 수 없습니다.");
-        if (numbers.size() != 3) throw new IllegalArgumentException("숫자는 3개 입력되어야 합니다.");
+        if (set.size() != BASEBALL_COUNT) throw new IllegalArgumentException(DUPLICATE_NUMBER.getMessage());
+        if (numbers.size() != BASEBALL_COUNT) throw new IllegalArgumentException(INVALID_NUMBER_COUNT.getMessage());
     }
 
     public static void runBaseballGame() {
         while (true) {
-            System.out.println("숫자 야구 게임을 시작합니다.");
+            System.out.println(START_GAME.getMessage());
             List<Integer> computer = generateUniqueRandomNumbers();
             boolean shouldContinue = playBaseballGame(computer);
             if (!shouldContinue) break;
@@ -29,7 +34,7 @@ public class Application {
 
     public static boolean playBaseballGame(List<Integer> computer) {
         while (true) {
-            System.out.print("숫자를 입력주세요 : ");
+            System.out.print(ENTER_NUMBER.getMessage());
             List<Integer> player = readInputNumbers();
             validateNumbers(player);
 
@@ -37,13 +42,13 @@ public class Application {
             boolean is3Strike = playResult.printPlayResult();
             if (!is3Strike) continue;
 
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+            System.out.println(GAME_WIN.getMessage());
+            System.out.println(PLAY_AGAIN.getMessage());
 
             String order = readLine();
-            if (order.equals("1")) return true;
-            if (order.equals("2")) return false;
-            throw new IllegalArgumentException("1 또는 2를 입력해 주세요.");
+            if (order.equals(PLAY_AGAIN_INPUT)) return true;
+            if (order.equals(END_GAME_INPUT)) return false;
+            throw new IllegalArgumentException(INVALID_INPUT_VALUE.getMessage());
         }
     }
 
@@ -69,8 +74,8 @@ public class Application {
 
     public static List<Integer> generateUniqueRandomNumbers() {
         List<Integer> randomNumbers = new ArrayList<>();
-        while (randomNumbers.size() < 3) {
-            int randomNumber = pickNumberInRange(1, 9);
+        while (randomNumbers.size() < BASEBALL_COUNT) {
+            int randomNumber = pickNumberInRange(RANGE_START, RANGE_END);
             if (!randomNumbers.contains(randomNumber)) {
                 randomNumbers.add(randomNumber);
             }
